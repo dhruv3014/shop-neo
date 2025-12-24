@@ -7,10 +7,6 @@ import java.util.List;
 
 @Service
 public interface UserService {
-  // user operations
-
-  // create
-  User saveUser(User user);
 
   //get all user
   List<User> getAllUser();
