@@ -1,0 +1,44 @@
+# Example configuration for common-authorization library
+# Copy relevant sections to your service's common-authorization-application.yml
+
+common-authorization:
+  # Specify request header that should be used for getting principal
+  principal-header: Authorization
+
+  # Specify if authorization: on-demand (only if request contains principal header),
+  # or mandatory (request must contain principal header)
+  on-demand-authorization: true
+
+  # URL of the authorization service for centralized authorization checks (optional)
+  authorization-service-url: http://app-backoffice-authorization-service-java-ms
+
+  # Specify URL path patterns for which authorization should be skipped
+  # pathPattern: Ant-style, methods: empty means all HTTP methods
+  authorization-excluded-path-patterns:
+    - pathPattern: /internal/api/v1/**
+      methods: [ ]
+    - pathPattern: /api/v1/internal/**
+      methods: [ ]
+    - pathPattern: /health/**
+      methods: [ ]
+    - pathPattern: /metrics
+      methods: [ ]
+
+  # Specify URL hosts for which REST client Authorization header should be set (Ant-style)
+  authorization-header-propagation-included-host-patterns:
+    - app-backoffice-*
+
+  # Whether to allow customer tokens (vs only internal/service tokens)
+  allow-customer-token: false
+
+  # JWT secret for HMAC signature validation (use for simple setups)
+  jwt-secret: ${JWT_SECRET:specify-your-secret-key-is-here-36chars}
+
+  # JWT public key (PEM format) for RSA signature validation (recommended for multi-service)
+  # jwt-public-key: |
+  #   -----BEGIN PUBLIC KEY-----
+  #   MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA...
+  #   -----END PUBLIC KEY-----
+
+  # Prefix to add to roles when creating Spring Security authorities
+  role-prefix: ROLE_
