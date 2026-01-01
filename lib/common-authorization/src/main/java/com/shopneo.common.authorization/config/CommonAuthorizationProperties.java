@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.http.HttpMethod;
 
 import java.util.Arrays;
@@ -19,9 +18,7 @@ import java.util.stream.Collectors;
  */
 @Data
 @NoArgsConstructor
-@Builder(toBuilder = true)
 @AllArgsConstructor
-@ConfigurationProperties(prefix = "common-authorization")
 public class CommonAuthorizationProperties {
 
   /**
@@ -36,11 +33,6 @@ public class CommonAuthorizationProperties {
    * Default: true (on-demand)
    */
   private boolean onDemandAuthorization = true;
-
-  /**
-   * URL of the authorization service for centralized authorization checks.
-   */
-  private String authorizationServiceUrl;
 
   /**
    * URL path patterns for which authorization should be skipped.

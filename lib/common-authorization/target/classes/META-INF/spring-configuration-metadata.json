@@ -5,11 +5,6 @@
       "type": "com.shopneo.common.authorization.config.CommonAuthorizationProperties",
       "sourceType": "com.shopneo.common.authorization.config.CommonAuthorizationAutoConfiguration",
       "sourceMethod": "authorizationProperties()"
-    },
-    {
-      "name": "common-authorization",
-      "type": "com.shopneo.common.authorization.config.CommonAuthorizationProperties",
-      "sourceType": "com.shopneo.common.authorization.config.CommonAuthorizationProperties"
     }
   ],
   "properties": [

@@ -1,0 +1,43 @@
+server:
+  port: 9090
+
+JWT_SECRET: 675d744915735a29f3cc961d3008f3a3f8790dd41d3811b5
+
+spring:
+  application:
+    name: user-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/shopneo_users
+    username: postgres
+    password: password
+    driver-class-name: org.postgresql.Driver
+  security:
+    user:
+      name: ${SECURITY_USERNAME:admin}
+      password: ${SECURITY_PASSWORD:admin123}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+
+jwt:
+  secret: ${JWT_SECRET}
+  access-token-ttl: 900
+  refresh-token-ttl: 1800
+
+common-authorization:
+  authorization-excluded-path-patterns:
+    - pathPattern: /api/v1/auth/**
+      methods: []
+    - pathPattern: /api/v1/oauth/**
+      methods: []
+    - path-pattern: /api/v1/internal/**
+      methods: []
+    - pathPattern: /health/**
+      methods: [ ]
+    - pathPattern: /metrics
+      methods: [ ]

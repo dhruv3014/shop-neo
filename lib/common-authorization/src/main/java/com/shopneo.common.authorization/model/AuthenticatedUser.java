@@ -23,8 +23,6 @@ public class AuthenticatedUser {
    */
   private String email;
 
-  private String name;
-
   /**
    * User roles (from JWT 'roles' claim).
    */
