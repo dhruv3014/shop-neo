@@ -1,19 +1,15 @@
 package com.shopneo.user.controller;
 
-import com.shopneo.user.dto.request.LoginUserRequest;
-import com.shopneo.user.dto.request.RefreshTokenRequest;
-import com.shopneo.user.dto.request.RegisterUserRequest;
+import com.shopneo.user.dto.request.*;
 import com.shopneo.user.dto.response.AuthResponse;
 import com.shopneo.user.service.LocalAuthService;
+import com.shopneo.user.service.PasswordService;
 import com.shopneo.user.service.TokenService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -22,7 +18,7 @@ public class LocalAuthController {
 
   private final TokenService tokenService;
   private final LocalAuthService authService;
-
+  private final PasswordService passwordService;
 
   @PostMapping("/register")
   public ResponseEntity<Void> register(
@@ -46,5 +42,20 @@ public class LocalAuthController {
 
     AuthResponse response = tokenService.refresh(request);
     return ResponseEntity.ok(response);
+  }
+
+  @PostMapping("/forgot-password")
+  public ResponseEntity<Void> forgotPassword(
+          @RequestBody ForgotPasswordRequest request) {
+    passwordService.forgotPassword(request.getEmail());
+    return ResponseEntity.ok().build();
+  }
+
+  @PostMapping("/reset-password")
+  public ResponseEntity<Void> resetPassword(
+          @RequestParam String token,
+          @RequestBody ResetPasswordRequest request) {
+    passwordService.resetPassword(token, request);
+    return ResponseEntity.ok().build();
   }
 }
